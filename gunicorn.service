@@ -1,0 +1,36 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=belek
+Group=www-data
+WorkingDirectory=/home/belek/usr/itc_service/
+ExecStart=/home/belek/usr/itc_service/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind 0.0.0.0:4000 ItcBootcamp.wsgi
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=belek
+Group=www-data
+WorkingDirectory=/home/belek/Feliz_backend
+ExecStart=/home/belek/Feliz_backend/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          Feeliz.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
